@@ -1,0 +1,209 @@
+﻿@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global error suppression for third-party libraries */
+.suppress-errors {
+  pointer-events: auto !important;
+}
+
+/* Animation utilities */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(59, 130, 246, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.animate-slideInRight {
+  animation: slideInRight 0.5s ease-out forwards;
+}
+
+.animate-slideInLeft {
+  animation: slideInLeft 0.5s ease-out forwards;
+}
+
+.animate-pulse-shadow {
+  animation: pulse 2s infinite;
+}
+
+/* Aspect ratio utilities */
+.aspect-w-16 {
+  position: relative;
+  padding-bottom: calc(var(--tw-aspect-h) / var(--tw-aspect-w) * 100%);
+  --tw-aspect-w: 16;
+}
+
+.aspect-h-9 {
+  --tw-aspect-h: 9;
+}
+
+.aspect-w-16 > * {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+/* Custom Components */
+.card {
+  background-color: white;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.card-hover {
+  transform: translateY(0);
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-0.25rem);
+}
+
+.focus-ring:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5), 0 0 0 4px rgba(255, 255, 255, 0.5);
+}
+
+/* Fix for TinyMCE aria-hidden issue */
+.tox-tinymce-aux {
+  z-index: 99999 !important; 
+}
+
+/* Ensure TinyMCE doesn't mess with accessibility */
+[data-editor-container] [aria-hidden="true"] {
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Rich text editor content */
+.browser-css {
+  max-width: none;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  color: #374151;
+}
+
+.browser-css h1,
+.browser-css h2,
+.browser-css h3,
+.browser-css h4 {
+  color: #1f2937;
+  font-weight: bold;
+  margin-top: 1.5em;
+  margin-bottom: 0.75em;
+}
+
+.browser-css h1 {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+}
+
+.browser-css h2 {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+}
+
+.browser-css h3 {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
+.browser-css h4 {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
+.browser-css p {
+  margin-top: 1.25em;
+  margin-bottom: 1.25em;
+}
+
+.browser-css a {
+  color: #3b82f6;   
+
+  text-decoration: underline;
+}
+
+.browser-css a:hover {
+  color: #2563eb;
+}
+
+.browser-css ul,
+.browser-css ol {
+  margin-top: 1.25em;
+  margin-bottom: 1.25em;
+  padding-left: 1.625em;
+}
+
+.browser-css ul {
+  list-style-type: disc;
+}
+
+.browser-css ol {
+  list-style-type: decimal;
+}
+
+.browser-css li {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.browser-css blockquote {
+  font-style: italic;
+  color: #6b7280;
+  border-left: 4px solid #3b82f6;
+  padding-left: 1rem;
+  margin: 1.5em 0;
+}
+
+.browser-css img {
+  border-radius: 0.5rem;
+  max-width: 100%;
+  height: auto;
+  margin: 1.5em 0;
+}
+
+.browser-css pre {
+  background-color: #1f2937;
+  color: #f9fafb;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin: 1.5em 0;
+}
+
+.browser-css code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.875em;
+  background-color: #f3f4f6;
+  padding: 0.2em 0.4em;
+  border-radius: 0.25rem;
+}
