@@ -7,8 +7,11 @@ export default function Button({
   textColor = "text-white",
   className = "",
   isLoading = false,
+  loading = false, // Alternative prop name for backwards compatibility
   ...props
 }) {
+  const showLoading = isLoading || loading;
+
   return (
     <button
       type={type}
@@ -20,10 +23,10 @@ export default function Button({
                 flex items-center justify-center gap-2 relative overflow-hidden
                 before:absolute before:inset-0 before:bg-white before:opacity-0 before:hover:opacity-10 before:transition-opacity
             `}
-      disabled={isLoading}
+      disabled={showLoading}
       {...props}
     >
-      {isLoading ? (
+      {showLoading ? (
         <>
           <span className="flex items-center gap-2">
             <svg

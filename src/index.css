@@ -207,3 +207,31 @@
   padding: 0.2em 0.4em;
   border-radius: 0.25rem;
 }
+
+/* Card utilities for consistent sizing */
+.card-equal-height {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.card-content-grow {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Ensure line-clamp works properly */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.75rem;
+  max-height: 3.5rem;
+}
+
+/* Grid auto-rows-fr support for older browsers */
+.auto-rows-fr {
+  grid-auto-rows: 1fr;
+}

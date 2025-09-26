@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import authService from "../appwrite/auth";
 import { Link, useNavigate } from "react-router-dom";
 import { login } from "../store/authSlice";
-import { Button, Input, Logo } from "./index.js";
+import { Button, Input, Logo, LoadingOverlay } from "./index.js";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 
@@ -24,7 +24,7 @@ function Signup() {
       const userData = await authService.createAccount(data);
       if (userData) {
         const userData = await authService.getCurrentUser();
-        if (userData) dispatch(login(userData));
+        if (userData) dispatch(login({ userData }));
         navigate("/");
       }
     } catch (error) {
@@ -36,6 +36,9 @@ function Signup() {
 
   return (
     <div className="flex items-center justify-center">
+      {/* Loading overlay for authentication */}
+      <LoadingOverlay show={loading} variant="auth" />
+
       <div
         className={`mx-auto my-4 w-full max-w-lg overflow-hidden rounded-2xl shadow-lg`}
       >
@@ -43,7 +46,7 @@ function Signup() {
         <div className="bg-gradient-to-r from-blue-500 to-purple-600 px-2 py-4">
           <div className="mb-2 flex justify-center">
             <span className="inline-block w-full max-w-[100px]">
-              <Logo/>
+              <Logo />
             </span>
           </div>
           <h2 className="text-center text-2xl font-bold leading-tight text-white">
@@ -159,7 +162,6 @@ function Signup() {
             <Button type="submit" className="w-full" loading={loading}>
               Create Account
             </Button>
-
           </form>
         </div>
       </div>

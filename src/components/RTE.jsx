@@ -40,7 +40,7 @@ export default function RTE({
           rules={rules}
           render={({ field: { onChange } }) => (
             <Editor
-              apiKey={conf.tinymceApiKey}
+              apiKey={conf.tinymceApiKey || "no-api-key"}
               initialValue={defaultValue}
               init={{
                 initialValue: defaultValue,
@@ -48,6 +48,18 @@ export default function RTE({
                 menubar: true,
                 accessibility_focus: true,
                 a11y_advanced_options: true,
+
+                // Disable analytics and tracking to prevent error messages
+                analytics: false,
+                toolbar_mode: "floating",
+                promotion: false,
+                branding: false,
+                ui_mode: "split",
+                statusbar: true,
+
+                // Error handling
+                error_reporting: false,
+
                 plugins: [
                   "image",
                   "advlist",
@@ -160,10 +172,18 @@ export default function RTE({
               }}
               onEditorChange={(content, editor) => {
                 try {
+                  // Clean content to remove any error messages
+                  const cleanContent = content
+                    .replace(/Failed to load resource.*?CLIENT/gi, "")
+                    .replace(/sp\.tinymce\.com.*?/gi, "")
+                    .replace(/Understand this error/gi, "")
+                    .replace(/<p>\s*<\/p>/gi, "") // Remove empty paragraphs
+                    .trim();
+
                   const text = editor.getContent({ format: "text" });
                   setWordCount(text ? text.trim().split(/\s+/).length : 0);
                   setCharCount(text ? text.length : 0);
-                  onChange(content);
+                  onChange(cleanContent);
                 } catch (err) {
                   console.log("Error in editor change:", err);
                   onChange(content);

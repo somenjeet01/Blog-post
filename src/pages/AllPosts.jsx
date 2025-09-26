@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Container, PostCard } from "../components";
+import { Container, PostCard, PageLoadingSkeleton } from "../components";
 import appwriteService from "../appwrite/config";
 import { Link } from "react-router-dom";
 
@@ -34,20 +34,7 @@ function AllPosts() {
         </div>
 
         {loading ? (
-          <div className="flex flex-wrap justify-center gap-6">
-            {[1, 2, 3, 4, 5, 6].map((i) => (
-              <div key={i} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 p-3">
-                <div className="bg-white rounded-xl shadow-md overflow-hidden h-72 animate-pulse">
-                  <div className="h-40 bg-gray-200"></div>
-                  <div className="p-4">
-                    <div className="h-5 bg-gray-200 rounded mb-2"></div>
-                    <div className="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
-                    <div className="h-4 bg-gray-200 rounded w-1/2"></div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+          <PageLoadingSkeleton type="posts" />
         ) : posts.length === 0 ? (
           <div className="text-center py-12">
             <svg
@@ -80,12 +67,9 @@ function AllPosts() {
           </div>
         ) : (
           <>
-            <div className="flex flex-wrap justify-center gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 auto-rows-fr">
               {posts.map((post) => (
-                <div
-                  key={post.$id}
-                  className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 p-3"
-                >
+                <div key={post.$id} className="h-full">
                   <PostCard {...post} />
                 </div>
               ))}

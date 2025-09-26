@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import appwriteService from "../appwrite/config";
-import { Container, PostCard } from "../components";
+import { Container, PostCard, PageLoadingSkeleton } from "../components";
 import { Link } from "react-router-dom";
 
 function Home() {
@@ -27,23 +27,7 @@ function Home() {
   }, []);
 
   if (isLoading) {
-    return (
-      <div className="w-full min-h-screen bg-gradient-to-bl from-blue-100 via-blue to-blue-100 py-8">
-        <Container className="space-y-8">
-          <div className="animate-pulse space-y-8">
-            {/* Hero section skeleton */}
-            <div className="bg-blue-500 -72 rounded-2xl w-full"></div>
-
-            {/* Posts grid skeleton */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[1, 2, 3, 4, 5, 6].map((item) => (
-                <div key={item} className="bg-blue-500 64 rounded-xl"></div>
-              ))}
-            </div>
-          </div>
-        </Container>
-      </div>
-    );
+    return <PageLoadingSkeleton type="posts" />;
   }
 
   if (posts.length === 0 && !featuredPost) {
@@ -103,13 +87,11 @@ function Home() {
     );
   }
 
-
   return (
     <div className="w-full bg-gradient-to-b from-white to-blue-50 mx-auto">
       {/* Hero Section with Featured Post */}
       {featuredPost && (
         <div className="bg-blue-900 text-white md:mx-8 lg:mx-32 rounded-2xl my-8">
-
           <Container className="py-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
               {/* Featured Post Details */}
@@ -159,9 +141,9 @@ function Home() {
             Latest Articles
           </h2>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-fr">
             {posts.map((post) => (
-              <div key={post.$id}>
+              <div key={post.$id} className="h-full">
                 <PostCard {...post} />
               </div>
             ))}
